@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
-  include JsonapiErrorsHandler
+  # include JsonapiErrorsHandler
 
   before_action :set_default_format
 
@@ -10,9 +10,9 @@ class ApplicationController < ActionController::API
   # JsonapiErrorsHandler::Errors::Forbidden
   # JsonapiErrorsHandler::Errors::NotFound
   # JsonapiErrorsHandler::Errors::Unauthorized
-  ErrorMapper.map_errors!({
-                            'ActiveRecord::RecordNotFound' => 'JsonapiErrorsHandler::Errors::NotFound'
-                          })
+  # ErrorMapper.map_errors!({
+  #                           'ActiveRecord::RecordNotFound' => 'JsonapiErrorsHandler::Errors::NotFound'
+  #                         })
 
   # rescue_from ::StandardError must be defined first
   rescue_from ::StandardError, with: ->(e) { handle_error(e) }
@@ -22,10 +22,11 @@ class ApplicationController < ActionController::API
   private
 
   def handle_validation_error(error)
-    error_model = error.try(:model) || error.try(:record)
-    messages = error_model.errors.messages
-    mapped = JsonapiErrorsHandler::Errors::Invalid.new(errors: messages)
-    render_error(mapped)
+    raies error
+    # error_model = error.try(:model) || error.try(:record)
+    # messages = error_model.errors.messages
+    # mapped = JsonapiErrorsHandler::Errors::Invalid.new(errors: messages)
+    # render_error(mapped)
   end
 
   def set_default_format
