@@ -16,7 +16,7 @@ class ApplicationController < ActionController::API
 
   # rescue_from ::StandardError must be defined first
   rescue_from ::StandardError, with: ->(e) { handle_error(e) }
-  rescue_from ::ActiveModel::ValidationError, with: ->(e) { handle_validation_error(e) }
+  # rescue_from ::ActiveModel::ValidationError, with: ->(e) { handle_validation_error(e) }
   rescue_from ::ActiveRecord::RecordInvalid, with: ->(e) { handle_validation_error(e) }
 
   private
